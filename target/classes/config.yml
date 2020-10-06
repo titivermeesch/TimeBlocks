@@ -1,0 +1,6 @@
+message: "§cYou didn't play long enough to use redstone"
+minutesBeforeUse: 600
+used_materials:
+  - REDSTONE_BLOCK
+  - REDSTONE_WIRE
+  - PISTON
