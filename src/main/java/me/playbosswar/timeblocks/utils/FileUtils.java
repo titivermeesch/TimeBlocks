@@ -7,6 +7,7 @@ import org.json.simple.parser.ParseException;
 
 import java.io.*;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 public class FileUtils {
@@ -39,8 +40,16 @@ public class FileUtils {
             Reader reader = new FileReader(timerFile);
             JSONParser parser = new JSONParser();
             JSONObject data = (JSONObject) parser.parse(reader);
+            String uuid = playerUUID.toString();
 
-            data.put(playerUUID, seconds);
+            if(data.get(uuid) == null) {
+                data.put(uuid, seconds);
+            } else {
+                long alreadyPlayedSeconds = (long) data.get(playerUUID.toString());
+                long total = alreadyPlayedSeconds + seconds;
+
+                data.replace(uuid, total);
+            }
 
             FileWriter jsonFile = new FileWriter(timerFile);
             jsonFile.write(data.toJSONString());
@@ -55,6 +64,11 @@ public class FileUtils {
             Reader reader = new FileReader(timerFile);
             JSONParser parser = new JSONParser();
             JSONObject data = (JSONObject) parser.parse(reader);
+
+            for(Object key : data.keySet()) {
+                String actualKey = (String) key;
+                Main.cachedPlayTimes.put(UUID.fromString(actualKey), (Long) data.get(actualKey));
+            }
         } catch (ParseException | IOException e) {
             e.printStackTrace();
         }

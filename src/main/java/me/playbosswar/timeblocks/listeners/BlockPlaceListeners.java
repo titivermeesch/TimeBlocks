@@ -1,7 +1,7 @@
 package me.playbosswar.timeblocks.listeners;
 
 import me.playbosswar.timeblocks.Main;
-import me.playbosswar.timeblocks.PlayTimeAPI;
+import me.playbosswar.timeblocks.utils.PlayTime;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,6 +16,7 @@ public class BlockPlaceListeners implements Listener {
         Player p = e.getPlayer();
         Material m = e.getBlock().getType();
 
+
         ArrayList<Material> usedMaterials = new ArrayList<>();
         Main.getPlugin().getConfig().getList("used_materials").forEach(mat -> usedMaterials.add(Material.valueOf((String) mat)));
 
@@ -27,15 +28,15 @@ public class BlockPlaceListeners implements Listener {
             return;
         }
 
-        int playerPlayTime = PlayTimeAPI.getTotalPlayTime(p);
-        int requiredTime = Main.getPlugin().getConfig().getInt("minutesBeforeUse");
-        int totalRequiredTime = requiredTime - playerPlayTime;
+        long playerPlayTime = PlayTime.getCurrentPlayTimeSeconds(p.getUniqueId()) / 60;
+        long requiredTime = Main.getPlugin().getConfig().getInt("minutesBeforeUse");
+        long totalRequiredTime = requiredTime - playerPlayTime;
 
         if (playerPlayTime < requiredTime) {
             e.setCancelled(true);
 
-            int hours = totalRequiredTime / 60;
-            int minutes = totalRequiredTime % 60;
+            long hours = totalRequiredTime / 60;
+            long minutes = totalRequiredTime % 60;
 
             p.sendMessage(Main.getPlugin().getConfig().getString("message").replace("%time%", hours + "h" + minutes + "m" ));
         }
