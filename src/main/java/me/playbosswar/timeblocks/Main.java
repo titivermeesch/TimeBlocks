@@ -1,7 +1,9 @@
 package me.playbosswar.timeblocks;
 
+import me.playbosswar.timeblocks.commands.MainCommands;
 import me.playbosswar.timeblocks.listeners.BlockPlaceListeners;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
@@ -10,8 +12,10 @@ public class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         plugin = this;
+
         saveDefaultConfig();
-        getServer().getPluginManager().registerEvents(new BlockPlaceListeners(), this);
+        registerEvents();
+        getCommand("timeblocks").setExecutor(new MainCommands());
     }
 
     @Override
@@ -21,5 +25,10 @@ public class Main extends JavaPlugin {
 
     public static Plugin getPlugin() {
         return plugin;
+    }
+
+    private void registerEvents() {
+        PluginManager pm = getServer().getPluginManager();
+        pm.registerEvents(new BlockPlaceListeners(), this);
     }
 }

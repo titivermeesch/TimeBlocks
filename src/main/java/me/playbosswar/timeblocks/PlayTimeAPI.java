@@ -24,6 +24,10 @@ public class PlayTimeAPI {
             try {
 
                 File playerStatsFile = new File(world.getWorldFolder() + "/stats/" + p.getUniqueId().toString() + ".json");
+                if(!playerStatsFile.exists()) {
+                    continue;
+                }
+
                 FileReader fr = new FileReader(playerStatsFile.getPath());
                 JSONObject o = (JSONObject) jsonParser.parse(fr);
 

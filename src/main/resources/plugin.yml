@@ -1,6 +1,11 @@
 main: me.playbosswar.timeblocks.Main
 name: TimeBlocks
 author: PlayBossWar
-version: "1.0"
+version: "1.0.1"
 api-version: 1.13
 description: Only place certain blocks after a certain time
+commands:
+  timeblocks:
+    usage: /<command>
+    description: Main command
+    aliases: [tb]

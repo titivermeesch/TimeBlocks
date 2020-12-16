@@ -1,4 +1,4 @@
-message: "§cYou didn't play long enough to use redstone"
+message: "§cYou didn't play long enough to use redstone. You have to wait another %time%"
 minutesBeforeUse: 600
 used_materials:
   - REDSTONE_BLOCK

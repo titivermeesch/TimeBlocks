@@ -23,12 +23,21 @@ public class BlockPlaceListeners implements Listener {
             return;
         }
 
+        if(p.hasPermission("timeblock.bypass")) {
+            return;
+        }
+
         int playerPlayTime = PlayTimeAPI.getTotalPlayTime(p);
         int requiredTime = Main.getPlugin().getConfig().getInt("minutesBeforeUse");
+        int totalRequiredTime = requiredTime - playerPlayTime;
 
         if (playerPlayTime < requiredTime) {
             e.setCancelled(true);
-            p.sendMessage(Main.getPlugin().getConfig().getString("message"));
+
+            int hours = totalRequiredTime / 60;
+            int minutes = totalRequiredTime % 60;
+
+            p.sendMessage(Main.getPlugin().getConfig().getString("message").replace("%time%", hours + "h" + minutes + "m" ));
         }
     }
 }
