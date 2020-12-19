@@ -30,6 +30,10 @@ public class JoinLeaveListeners implements Listener {
         // Remove entry from main map
         Main.playTimes.remove(playerUUID);
         // Update cached times correctly so we don't need to re-read the main file
-        Main.cachedPlayTimes.put(playerUUID, secondsPlayed + Main.cachedPlayTimes.get(playerUUID));
+        if(Main.cachedPlayTimes.containsKey(playerUUID)) {
+            secondsPlayed += Main.cachedPlayTimes.get(playerUUID);
+        }
+
+        Main.cachedPlayTimes.put(playerUUID, secondsPlayed);
     }
 }

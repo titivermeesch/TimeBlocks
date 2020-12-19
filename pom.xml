@@ -6,7 +6,8 @@
 
     <groupId>me.playbosswar</groupId>
     <artifactId>TimeBlocks</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
+    <description>Only place certain blocks after a certain time</description>
 
     <build>
         <finalName>${project.name}_v${project.version}</finalName>
@@ -21,6 +22,12 @@
                 </configuration>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
     </build>
 
     <repositories>

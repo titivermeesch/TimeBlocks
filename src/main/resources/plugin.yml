@@ -1,9 +1,9 @@
 main: me.playbosswar.timeblocks.Main
-name: TimeBlocks
+name: "${project.name}"
 author: PlayBossWar
-version: "1.0.1"
+version: "${project.version}"
+description: "${project.description}"
 api-version: 1.13
-description: Only place certain blocks after a certain time
 commands:
   timeblocks:
     usage: /<command>
